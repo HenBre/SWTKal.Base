@@ -40,7 +40,7 @@ public class SimpleServer extends Server
 	protected Map<String, String> passwoerter;
 	protected Map<String, Map<String, Vector<Termin>>> teilnehmerTermine;
 		// verwaltet die Teilnehmer-Termin-Assoziationen
-		// speichert zu jedem Personenkürzel-String eine Map
+		// speichert zu jedem Personenk?rzel-String eine Map
 		// diese Map liefert zu jedem Datums-String einen Vector
 		// dieser Vector enthaelt alle Termine zur Teilnehmerperson am konkreten Datum
 //  TODO analoge Datenstruktur und Interface-Methoden fuer Besitzer-Assoziation einfuegen?	
