@@ -15,7 +15,7 @@ package junit.swtkal.domain;
 import junit.framework.*;
 import swtkal.domain.Datum;
 
-// TODO Junit-Test für Datum und weitere Domain-Klassen ergaenzen
+// TODO Junit-Test f?r Datum und weitere Domain-Klassen ergaenzen
 
 /*****************************************************************************************************
  * This DatumTest ......
