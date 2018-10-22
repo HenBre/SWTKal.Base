@@ -39,6 +39,7 @@ public class SimpleServer extends Server
 	protected Map<String, Person> personen;
 	protected Map<String, String> passwoerter;
 	protected Map<String, Map<String, Vector<Termin>>> teilnehmerTermine;
+	protected int termin_id_counter = 0;
 		// verwaltet die Teilnehmer-Termin-Assoziationen
 		// speichert zu jedem Personenkürzel-String eine Map
 		// diese Map liefert zu jedem Datums-String einen Vector
@@ -176,7 +177,7 @@ public class SimpleServer extends Server
 	public void insert(Termin termin) throws TerminException
 	{
 		logger.fine("Insertion of date " + termin);
-		
+
 		// insert into teilnehmerTermine
 		Collection<Person> teilnehmer = termin.getTeilnehmer();
 		for (Person p : teilnehmer)
@@ -185,6 +186,8 @@ public class SimpleServer extends Server
 				throw new TerminException("Userid unknown!");
 			insert(termin, p, teilnehmerTermine);
 		}
+		termin.setId(this.termin_id_counter);
+		termin_id_counter++;
 
 //		// insert into besitzerTermine
 //		String kuerzel = termin.getBesitzer().getKuerzel();
@@ -255,13 +258,23 @@ public class SimpleServer extends Server
 
 	public Termin getTermin(int terminId) throws TerminException
 	{
-		throw new TerminException("Not yet implemented!");
-		// TODO Auto-generated method stub
+		for (String person_id : this.teilnehmerTermine.keySet()){
+			for (String date_id : this.teilnehmerTermine.get(person_id).keySet())
+				for (Termin t  : this.teilnehmerTermine.get(person_id).get(date_id)){
+					if (t.getId() == terminId) return t;
+				}
+		}
+		throw new TerminException("Kein Termin gefunden");
 	}
 	
 	public void delete(int terminID) throws TerminException
 	{
-		throw new TerminException("Not yet implemented!");
+			for (String person_id : this.teilnehmerTermine.keySet()){
+				for (String date_id : this.teilnehmerTermine.get(person_id).keySet())
+					for (Termin t  : this.teilnehmerTermine.get(person_id).get(date_id)){
+						if (t.getId() == terminID) this.teilnehmerTermine.get(person_id).get(date_id).remove(t);
+					}
+			}
 		// TODO Auto-generated method stub
 	}
 
